@@ -1,0 +1,22 @@
+name: "Invalidate Gradle Cache"
+on:
+  workflow_call:
+
+jobs:
+  invalidate_gradle_cache:
+    name: Update gradle cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        with:
+          submodules: 'recursive'
+      - name: Set up JDK 1.17
+        uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Build internal
+        uses: gradle/gradle-build-action@8baac4c8ef753599f92eeb509c246d09d6250fa6 # v3
+        with:
+          cache-read-only: false
+          arguments: testDebug detekt lint
