@@ -8,7 +8,7 @@ on:
 
 jobs:
   check_changelog:
-    name: "Check changelog"
+    name: "Check changelog TEST TEST"
     uses: ./.github/workflows/call-check-changelog.yml
   validate_gradle_wrapper:
     name: "Validate gradle wrapper"
