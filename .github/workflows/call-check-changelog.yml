@@ -1,9 +1,7 @@
 name: Pull Request CI - Changelog
 
 on:
-  pull_request:
-    branches:
-      - 'dev'
+  workflow_call:
 
 jobs:
   changelog_changes:

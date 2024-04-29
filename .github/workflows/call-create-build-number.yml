@@ -1,0 +1,41 @@
+name: "Create build numbers"
+on:
+  workflow_call:
+    outputs:
+      number:
+        description: "The build number for android app"
+        value: ${{ jobs.build_number.outputs.NUMBER }}
+      number_wearos:
+        description: "The build number for wear os"
+        value: ${{ jobs.build_number.outputs.NUMBER_WEAR_OS }}
+jobs:
+  build_number:
+    name: Generate build number
+    runs-on: ubuntu-latest
+    outputs:
+      NUMBER: ${{ steps.build_out.outputs.NUMBER }}
+      NUMBER_WEAR_OS: ${{ steps.wearos_out.outputs.NUMBER_WEAR_OS }}
+    steps:
+      # steps.buildnumber.outputs.build_number
+      - name: Generate build number
+        id: buildnumber
+        uses: onyxmueller/build-tag-number@4a0c81c9af350d967032d49204c83c38e6b0c8e4 # v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # steps.buildnumber_wearos.outputs.build_number
+      - name: Generate build number for WearOS
+        id: buildnumber_wearos
+        uses: onyxmueller/build-tag-number@4a0c81c9af350d967032d49204c83c38e6b0c8e4 # v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Set output for simple build'
+        id: build_out
+        run: |
+          echo "NUMBER=${{ steps.buildnumber.outputs.build_number }}" >> $GITHUB_OUTPUT
+
+      - name: 'Set output for WearOS'
+        id: wearos_out
+        run: |
+          echo "NUMBER_WEAR_OS=${{ steps.buildnumber_wearos.outputs.build_number }}" >> $GITHUB_OUTPUT
