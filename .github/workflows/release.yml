@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate_gradle_wrapper:
-    name: "Validate gradle wrapper"
+    name: "Validate gradle wrapper hi"
     uses: ./.github/workflows/call-gradle-wrapper-validation.yml
   build_number:
     needs: validate_gradle_wrapper
