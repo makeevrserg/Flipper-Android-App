@@ -7,7 +7,14 @@ on:
   merge_group:
 
 jobs:
+  check_changelog:
+    name: "Check changelog"
+    uses: ./.github/workflows/call-check-changelog.yml
+  validate_gradle_wrapper:
+    name: "Validate gradle wrapper"
+    uses: ./.github/workflows/call-gradle-wrapper-validation.yml
   test:
+    needs: validate_gradle_wrapper
     name: "Run unit tests"
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +31,7 @@ jobs:
         with:
           arguments: testDebug
   detekt:
+    needs: validate_gradle_wrapper
     name: "Check project by detekt"
     runs-on: ubuntu-latest
     steps:
@@ -40,6 +48,7 @@ jobs:
         with:
           arguments: detekt
   android_lint:
+    needs: validate_gradle_wrapper
     name: "Check project by android`s lint"
     runs-on: ubuntu-latest
     steps:
