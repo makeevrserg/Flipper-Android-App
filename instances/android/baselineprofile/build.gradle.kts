@@ -33,6 +33,11 @@ android {
 baselineProfile {
     managedDevices += "pixel6Api31"
     useConnectedDevices = false
+    tasks.register("setupBaselineProfileDevices") {
+        managedDevices.forEach { managedDevice ->
+            this.dependsOn(tasks.getByName("${managedDevice}Setup"))
+        }
+    }
 }
 
 dependencies {
