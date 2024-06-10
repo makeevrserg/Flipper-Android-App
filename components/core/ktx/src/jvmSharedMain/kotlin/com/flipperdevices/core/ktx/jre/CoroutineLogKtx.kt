@@ -1,6 +1,6 @@
 package com.flipperdevices.core.ktx.jre
 
-import com.flipperdevices.core.buildkonfig.BuildKonfig
+import com.flipperdevices.components.core.build.konfig.BuildKonfig
 import com.flipperdevices.core.log.LogTagProvider
 import com.flipperdevices.core.log.info
 import com.flipperdevices.core.log.verbose

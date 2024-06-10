@@ -73,8 +73,8 @@ object ApkConfig {
             val currentParent = parent
             val group = when {
                 project == rootProject -> ROOT_GROUP_ID
-                currentParent == null -> "${ROOT_GROUP_ID}.${name}"
-                else -> "${currentParent.hierarchyGroup}.${name}"
+                currentParent == null -> "${ROOT_GROUP_ID}.$name"
+                else -> "${currentParent.hierarchyGroup}.$name"
             }
             return group
                 .replace("-", ".")

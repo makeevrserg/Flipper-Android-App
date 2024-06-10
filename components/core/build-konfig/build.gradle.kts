@@ -6,10 +6,6 @@ plugins {
     alias(libs.plugins.buildkonfig)
 }
 
-group = "com.flipperdevices.core.buildkonfig"
-
-android.namespace = "$group"
-
 buildConfig {
     className("BuildKonfig")
     packageName("$group")

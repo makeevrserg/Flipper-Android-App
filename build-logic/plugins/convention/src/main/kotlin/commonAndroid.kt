@@ -1,4 +1,4 @@
-@file:Suppress("Filename")
+@file:Suppress("Filename", "TooManyFunctions")
 
 import com.android.build.gradle.BaseExtension
 import com.flipperdevices.buildlogic.ApkConfig

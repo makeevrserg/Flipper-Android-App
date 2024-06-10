@@ -1,6 +1,6 @@
 package com.flipperdevices.core.progress
 
-import com.flipperdevices.core.buildkonfig.BuildKonfig
+import com.flipperdevices.components.core.build.konfig.BuildKonfig
 import java.lang.Float.min
 
 private const val MAX_PERCENT = 1.0f
