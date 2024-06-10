@@ -4,7 +4,8 @@ import com.flipperdevices.buildlogic.model.FlavorType
 import org.gradle.api.Project
 
 object ApkConfig {
-    const val APPLICATION_ID = "com.flipperdevices.app"
+    const val ROOT_GROUP_ID = "com.flipperdevices"
+    const val APPLICATION_ID = "${ROOT_GROUP_ID}.app"
 
     const val MIN_SDK_VERSION = 26
 
@@ -60,6 +61,24 @@ object ApkConfig {
                 logger.warn("Property $key was not found, writing default $default")
             }
             return FlavorType.values().find { it.name == propValue } ?: default
+        }
+
+    /**
+     * This value will automatically create group based on folders hierarchy
+     *
+     * e.x :components:core:resources -> [ROOT_GROUP_ID].components.core.resources
+     */
+    val Project.hierarchyGroup: String
+        get() {
+            val currentParent = parent
+            val group = when {
+                project == rootProject -> ROOT_GROUP_ID
+                currentParent == null -> "${ROOT_GROUP_ID}.${name}"
+                else -> "${currentParent.hierarchyGroup}.${name}"
+            }
+            return group
+                .replace("-", ".")
+                .lowercase()
         }
 }
 

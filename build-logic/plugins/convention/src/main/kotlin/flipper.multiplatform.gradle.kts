@@ -1,9 +1,12 @@
 import com.android.build.gradle.BaseExtension
+import com.flipperdevices.buildlogic.ApkConfig.hierarchyGroup
 
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
 }
+
+group = hierarchyGroup
 
 configure<BaseExtension> {
     commonAndroid(project)

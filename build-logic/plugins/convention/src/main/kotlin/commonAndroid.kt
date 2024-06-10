@@ -4,6 +4,7 @@ import com.android.build.gradle.BaseExtension
 import com.flipperdevices.buildlogic.ApkConfig
 import com.flipperdevices.buildlogic.ApkConfig.VERSION_CODE
 import com.flipperdevices.buildlogic.ApkConfig.VERSION_NAME
+import com.flipperdevices.buildlogic.ApkConfig.hierarchyGroup
 import org.gradle.api.JavaVersion
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
@@ -17,12 +18,18 @@ private const val SPLASH_SCREEN_ACTIVITY = "com.flipperdevices.singleactivity.im
 private const val SPLASH_SCREEN_ACTIVITY_KEY = "splashScreenActivity"
 
 fun BaseExtension.commonAndroid(target: Project) {
+    configureNamespace(target)
     configureDefaultConfig(target)
     configureBuildTypes()
     configureBuildFeatures()
     configureCompileOptions()
 
     target.suppressOptIn()
+}
+
+private fun BaseExtension.configureNamespace(project: Project) {
+    if (!namespace.isNullOrBlank()) return
+    namespace = project.hierarchyGroup
 }
 
 @Suppress("UnstableApiUsage")
