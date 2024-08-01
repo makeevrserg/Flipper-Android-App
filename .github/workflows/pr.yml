@@ -22,13 +22,14 @@ concurrency:
 
 jobs:
   validate_gradle_wrapper:
-    name: "Validate gradle wrapper"
+    name: ""
     uses: ./.github/workflows/call-validate-gradle-wrapper.yml
   check_changelog_changed:
     name: "Validate CHANGELOG changed"
     uses: ./.github/workflows/call-check-changelog.yml
   update_gradle_cache:
     name: "Gradle cache update"
+    needs: [ validate_gradle_wrapper ]
     if: github.event_name == 'merge_group'
     uses: ./.github/workflows/call-gradle-cache.yml
   info:
@@ -44,6 +45,7 @@ jobs:
   test:
     name: "Run unit tests"
     runs-on: [ self-hosted, AndroidShell ]
+    needs: [ validate_gradle_wrapper ]
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
@@ -60,6 +62,7 @@ jobs:
   detekt:
     name: "Check project by detekt"
     runs-on: [ self-hosted, AndroidShell ]
+    needs: [ validate_gradle_wrapper ]
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
@@ -76,6 +79,7 @@ jobs:
   android_lint:
     name: "Check project by android`s lint"
     runs-on: [ self-hosted, AndroidShell ]
+    needs: [ validate_gradle_wrapper ]
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
         with:
