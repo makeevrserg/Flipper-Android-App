@@ -28,7 +28,7 @@ jobs:
     name: "Validate CHANGELOG changed"
     uses: ./.github/workflows/call-check-changelog.yml
   update_gradle_cache:
-    name: "Gradle cache update"
+    name: "Gradle configuration change check"
     needs: [ validate_gradle_wrapper ]
     uses: ./.github/workflows/call-configuration-change.yml
   info:
